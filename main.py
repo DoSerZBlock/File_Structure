@@ -53,9 +53,8 @@ def generate_file_structure():
     ignore_list = get_ignore_list(gitignore_path)
     structure = get_file_structure(root_path, ignore_list)
 
-    print(ignore_list)
-
-    output_file = os.path.join(save_folder, f"{root_path}_file_structure.json")
+    output_filename = os.path.basename(os.path.normpath(root_path)) + "_structure.json"
+    output_file = os.path.join(save_folder, output_filename)
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(structure, f, ensure_ascii=False, indent=4)
 
@@ -71,7 +70,9 @@ def create_ui():
     label = tk.Label(root, text="選擇根目錄並導出 JSON 檔案", font=("Arial", 12))
     label.pack(pady=20)
 
-    button = tk.Button(root, text="開始", font=("Arial", 12), command=generate_file_structure)
+    button = tk.Button(
+        root, text="開始", font=("Arial", 12), command=generate_file_structure
+    )
     button.pack(pady=10)
 
     root.mainloop()
